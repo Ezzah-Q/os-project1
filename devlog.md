@@ -13,3 +13,16 @@
   - also need classes for file reading and writing (FileWriter, BufferedReader)
   - Driver communicating with encryption and logger through standard input/output
   - will start on pseudocode maybe coding in next working session
+
+10-2-2025, 10:58 am
+
+- this is before session
+- after reading the logger requirements again, I can think of main things needed for logger program
+
+1. program needs to read logfile argument given from driver
+2. open the log file
+3. read the lines form standard input from driver in a loop, with parsing the line to get action and message
+4. write to file in the format wanted
+5. close file
+
+- for this session I plan on creating psuedo code for logger program. I am not going to go into detail, just an overall layout. If I have time, I will move on to requirements and psuedocode for eeither ncryption program or driver program

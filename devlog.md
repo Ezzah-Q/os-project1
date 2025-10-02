@@ -26,3 +26,9 @@
 5. close file
 
 - for this session I plan on creating psuedo code for logger program. I am not going to go into detail, just an overall layout. If I have time, I will move on to requirements and psuedocode for eeither ncryption program or driver program
+
+10-2-2025, 1:54 pm
+
+- for today's session I wrote a rough psuedo code for the logger program. I probably need to add error handling. 
+- I did not get the change to look at encryption or driver programs, will look into that in the next session
+- forgot to mention in first devlog entry, but I am writing program in java

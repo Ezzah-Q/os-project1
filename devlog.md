@@ -3,9 +3,9 @@
 10-01-2025, 10:26 pm
 
 - created the project local repo and connected it to GitHub
-- added the java files (logger, driver, encrypter, readme, and devlog)
+- added the java files (logger, driver, encrypter, readme, and dev log)
 - looked at project description, thoughts for now...
-  - seems like I should start on some psuedocode first
+  - seems like I should start on some pseudocode first
   - focus on logger file as that seems the easiest
   - so logger needs the log file as input from driver, since it write to it
   - seems like the [action] part of a line is coming from the driver
@@ -25,15 +25,22 @@
 4. write to file in the format wanted
 5. close file
 
-- for this session I plan on creating psuedo code for logger program. I am not going to go into detail, just an overall layout. If I have time, I will move on to requirements and psuedocode for eeither ncryption program or driver program
+- for this session I plan on creating pseudocode for logger program. I am not going to go into detail, just an overall layout. If I have time, I will move on to requirements and psuedocode for eeither ncryption program or driver program
 
 10-2-2025, 1:54 pm
 
-- for today's session I wrote a rough psuedo code for the logger program. I probably need to add error handling. 
+- for today's session I wrote a rough pseudocode for the logger program. I probably need to add error handling. 
 - I did not get the change to look at encryption or driver programs, will look into that in the next session
-- forgot to mention in first devlog entry, but I am writing program in java
+- forgot to mention in first dev log entry, but I am writing program in java
 
 10-8-2025, 12:10 pm
 - this is before session, there aren't any new developments
-- this session I plan to write the psuedo code for driver and encryption program
-- once i have psuedo code or a rough idea of the structure of the program I'll begin writing actual code.
+- this session I plan to write the pseudocode for driver and encryption program
+- once i have pseudocode or a rough idea of the structure of the program I'll begin writing actual code.
+
+10-8-2025, 3:10 pm
+- for today's session I finished up writing pseudocode based on project pdf
+- this made me more confident with the code structure, I know the program flow of execution and the requirements needed for each program
+- also now the actual coding part is easier
+- for next session I will start coding the logger program based on the pseudocode I wrote
+- it might be helpful if I write a little bit of the driver program (part where it sends logs to logger) to see if processes and pipes were properly created

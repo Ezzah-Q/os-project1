@@ -32,3 +32,8 @@
 - for today's session I wrote a rough psuedo code for the logger program. I probably need to add error handling. 
 - I did not get the change to look at encryption or driver programs, will look into that in the next session
 - forgot to mention in first devlog entry, but I am writing program in java
+
+10-8-2025, 12:10 pm
+- this is before session, there aren't any new developments
+- this session I plan to write the psuedo code for driver and encryption program
+- once i have psuedo code or a rough idea of the structure of the program I'll begin writing actual code.

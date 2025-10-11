@@ -63,3 +63,12 @@
   - Instructions say command and result, so I assume that the [action] part is the command and the [message] is the result
 - I accomplished goal for this session got major chunk of code done
 - next session will write encryption code, test it to see if it works, and make sure all classes are integrated properly
+
+10-11-2025, 1:52 pm
+- this is before session
+- plan for today is to write the encryption program with a few things in mind (in my pseudocode)
+  - to implement vignere encryption and decryption of a word i can loop through the passkey and string 
+  - find the numerical value of the letter in the passkey and shift the string in letter by it accordingly, making sure to do mod 26
+  - to decrypt i can just subtract the shift
+- encryption and decryption will be functions called from main
+- after writing the encryption program i will test it separately to see if the encryption works

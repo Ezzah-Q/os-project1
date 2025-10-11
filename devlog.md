@@ -44,3 +44,9 @@
 - also now the actual coding part is easier
 - for next session I will start coding the logger program based on the pseudocode I wrote
 - it might be helpful if I write a little bit of the driver program (part where it sends logs to logger) to see if processes and pipes were properly created
+
+10-10-2025, 6:59 pm
+- before session, there aren't new developments
+- this session, I plan to start writing actual code, starting off with the logger program
+- I need to import the date time library and use try catch block
+- If I am able to get through logger code this session then I'll write part of driver and test the logger to driver communication pipe to see if its writing to file properly

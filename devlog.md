@@ -50,3 +50,16 @@
 - this session, I plan to start writing actual code, starting off with the logger program
 - I need to import the date time library and use try catch block
 - If I am able to get through logger code this session then I'll write part of driver and test the logger to driver communication pipe to see if its writing to file properly
+
+10-10-2025 11:42 pm
+- For today's session I finished first rough code for logger program
+- Although it wasn't really clear in instructions, I assumed that driver is sending logger commands in form of [action] [message]
+- in the example process code professor salazar provided for process creation, he used an older process api Runtime.runtime.exec
+  - there is a newer one ProcessBuilder which configures I/O channels easily, so I used that for process creation in driver
+- I tried to test logger and driver communication but got errors regarding file creation
+  - just decided to test logger file text output, which works as expected
+- Finished coding driver program, hardest part was creating the first case (password), but then its just the same code template for the rest of them
+- main confusion is in what exactly i record to logger. 
+  - Instructions say command and result, so I assume that the [action] part is the command and the [message] is the result
+- I accomplished goal for this session got major chunk of code done
+- next session will write encryption code, test it to see if it works, and make sure all classes are integrated properly

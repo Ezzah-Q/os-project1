@@ -72,3 +72,23 @@
   - to decrypt i can just subtract the shift
 - encryption and decryption will be functions called from main
 - after writing the encryption program i will test it separately to see if the encryption works
+
+10-11-2025 
+- so far writing encryption program isn't too bad, it is similar to logger code
+- just used same code logic for reading line and extracting action and message from logger
+- for encryption function used Stringbuilder to concatenate letter to string, more efficient that using +
+- also made sure to repeat the key word being used to encrypt if it's shorter than word to encrypt --> gave errors
+- also having trouble with the project structure, project can't seem to find my encryption program file (not in proper folder)
+  - just a refactoring issue, quickly resolved
+- tested the encryption program and encryption works, encryption and decryption lead to same word
+- realized that I need to add a statement that tells user the history is empty if they choose to use history on their first go
+  - spent long time fixing the logic flow of if command equals blank code block in driver.java
+- logger and encryption pipes were not working, but that was because I wrote the wrong file name in process creation step in driver
+- realized that logger logs the start of the command (when user chooses that command) and result
+  - i've been doing just result, will just add a write to logger line when command is first chosen
+- code was beginning to be really long, so i looked at prof Salazar's example he showed us and condensed the display 
+- realized I could functionalize a lot of the code...
+  - decided to write a display history function and a function that asks if the user wants to get form history or not
+- tested whole program, works as expected, logging works, encryption works, just need to fix little bugs and add error checking 
+- overall, this session I wrote and tested encryption code, and started fixing little errors, created functions etc
+- next session i plan to write a code block that allows user to exit history and enter a new string

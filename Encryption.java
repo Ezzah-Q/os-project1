@@ -1,40 +1,82 @@
-// encyrption program pseudo code
+// encryption program pseudo code
+import java.io.*;
+public class Encryption {
+    public static void main(String[] args) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+             PrintWriter writer = new PrintWriter(System.out, true)) {
 
-// forever loop
-    // read line from standardinput
-    // split input line into command and argument
+            // initialize line and passkey variables
+            String passkey = null;
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if ("QUIT".equals(line)) break;
 
-    // if command was PASS
-        // Output RESULT password set to driver
+                String[] parts = line.split(" ", 2);
+                // action = word before first space
+                String action = parts[0];
+                String message;
+                if (parts.length > 1) {
+                    message = parts[1];
+                } else {
+                    message = "";
+                }
 
-    // else if command was encyprt
-        // call encrypt vignere function with passkey and string as argument, put result in string
-        // Output RESULT string to driver
+                // if command was PASS
+                // Output RESULT password set to driver
+                if (action.equals("PASS")) {
+                    passkey = message;
+                    // Output RESULT password set to driver
+                    writer.println("RESULT password " + passkey + " set" );
+                } else if (action.equals("ENCRYPT")) {
+                    // call encrypt vignere function with passkey and string as argument, put result in string
+                    writer.println("RESULT " + vigenereEncrypt(message, passkey));
+                } else if (action.equals("DECRYPT")) {
+                    // call encrypt vignere function with passkey and string as argument, put result in string
+                    writer.println("RESULT " + vigenereDecrypt(message, passkey));
+                } else {
+                    writer.println("ERROR Invalid command");
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    // else if command was decrypt
-        // call decrypt vignere function with passkey and string as argument, put result in string
-        // output RESULT string to driver
+    private static String vigenereDecrypt(String message, String passkey) {
+        // define an empty string to store decrypted word
+        StringBuilder builder = new StringBuilder();
+        // repeat the passkey, so it is longer or equal to the word to encrypt
+        passkey = passkey.repeat((message.length() / passkey.length()) + 1);
+        // loop from i = 0 to length of string to encrypt
+        for (int i = 0; i < message.length(); i++) {
+            // figure length of shift
+            int shift = passkey.charAt(i) - 'A';
+            // apply shift to message letter
+            char newLetter = (char) ('A' + (((message.charAt(i) - 'A') - shift + 26) % 26));
+            // append new letter to empty string
+            builder.append(newLetter);
+        }
 
-    // else if command was quit
-        // exit the program
+        return builder.toString();
+    }
 
-// function definition vignere encrypt (string, passkey)
-    // define an empty string to store encypted word
-    // loop from i = 0 to length of string to encrypt
-        // store letter i from string into letter
-        // store letter i from passkey into key letter
-        // find the amount we have to shift (A - key letter)
-        // shift the letter and get the new letter
-        // store new letter in the string
-    // return encrypted word
+    private static String vigenereEncrypt(String message, String passkey) {
+        // define an empty string to store encrypted word
+        StringBuilder builder = new StringBuilder();
+        // repeat the passkey so it is longer or equal to the word to encrypt
+        passkey = passkey.repeat((message.length() / passkey.length()) + 1);
+        // loop from i = 0 to length of string to encrypt
+        for (int i = 0; i < message.length(); i++) {
+            // figure length of shift
+            int shift = passkey.charAt(i) - 'A';
+            // apply shift to message letter
+            char newLetter = (char) ('A' + (((message.charAt(i) - 'A') + shift) % 26));
+            // append new letter to empty string
+            builder.append(newLetter);
+        }
 
-// function definition vignere decrypt (string, passkey)
-    // define an empty string to store decypted word
-    // loop from i = 0 to length of string to decrypt
-        // store letter i from string into letter
-        // store letter i from passkey into key letter
-        // find the amount we have to shift (A - key letter)
-        // shift the letter backward and get the new letter
-        // store new letter in the string
-    // return encrypted word
+        return builder.toString();
+    }
+}
+
 

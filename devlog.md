@@ -92,3 +92,8 @@
 - tested whole program, works as expected, logging works, encryption works, just need to fix little bugs and add error checking 
 - overall, this session I wrote and tested encryption code, and started fixing little errors, created functions etc
 - next session i plan to write a code block that allows user to exit history and enter a new string
+
+10-18-2025
+- before session
+- not much has changed in between sessions, finished all the coding
+- this sesssion i plan to clean up everything, add error checking, add a code block that allow user to exit history and enter a new string

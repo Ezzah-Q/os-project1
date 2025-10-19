@@ -109,3 +109,8 @@
 - basically finished program, all of works as expected after thorough testing 
 - added comments
 - need to make sure program runs on the utd servers, which i will do next session.
+
+10-18-2025 12:27 am
+- before session
+- had prev session right before this, but i tried to run this program on cs1 servers but cs1 servers have an older version of java
+  - i need to replace some keywords i used in my program with actual manual code

@@ -93,7 +93,19 @@
 - overall, this session I wrote and tested encryption code, and started fixing little errors, created functions etc
 - next session i plan to write a code block that allows user to exit history and enter a new string
 
-10-18-2025
+10-18-2025 11:30 am
 - before session
 - not much has changed in between sessions, finished all the coding
 - this sesssion i plan to clean up everything, add error checking, add a code block that allow user to exit history and enter a new string
+
+10-18-2025 11:50 pm
+- after session, many changes today
+- implemented code block to take user form history to typing in a new string
+- also made sure that the user cannot encrypt/decrypt without a password put in place
+- added error checking to driver, making sure the entered string is only letter etc
+- for handling the encryption repsonses in driver, i just created that as a seperate function to increase readability
+- took care of a couple of logging errors, such as the driver exit message not showing up
+  - i had that line outside of the 'quit' case statement block
+- basically finished program, all of works as expected after thorough testing 
+- added comments
+- need to make sure program runs on the utd servers, which i will do next session.

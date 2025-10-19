@@ -6,6 +6,23 @@ import java.io.*;
 public class Encryption {
 
     /**
+     * This function is a helper function that repeats the passkey so that it is equal to or greater than
+     * the length of the word in order to perform vignere cipher
+     * @param key String of what we are encrypting/decrypting with
+     * @param freq Int that tells us how many times to repeat
+     * @return returns string we will use to encrypt/decrypt with
+     */
+    private static String repeat(String key, int freq) {
+        // build string
+        StringBuilder build = new StringBuilder();
+        // append the key to builder until you hit the frequency needed
+        for( int i = 0; i < freq; i++) {
+            build.append(key);
+        }
+        return build.toString();
+    }
+
+    /**
      * this function uses vignere cipher to decrypt a given string from user
      * @param message String to decrypt
      * @param passkey String key that decrypts the message
@@ -14,8 +31,10 @@ public class Encryption {
     private static String vignereDecrypt(String message, String passkey) {
         // define an empty string to store decrypted word
         StringBuilder builder = new StringBuilder();
-        // repeat the passkey, so it is longer or equal to the word to encrypt
-        passkey = passkey.repeat((message.length() / passkey.length()) + 1);
+        // calculate the amount of times we need to repeat passkey
+        int frequency = (message.length()/passkey.length()) + 1);
+        // call function to actually repeat it
+        passkey = repeat(passkey, frequency);
         // loop from i = 0 to length of string to encrypt
         for (int i = 0; i < message.length(); i++) {
             // figure length of shift
@@ -38,8 +57,10 @@ public class Encryption {
     private static String vignereEncrypt(String message, String passkey) {
         // define an empty string to store encrypted word
         StringBuilder builder = new StringBuilder();
-        // repeat the passkey so it is longer or equal to the word to encrypt
-        passkey = passkey.repeat((message.length() / passkey.length()) + 1);
+        // calculate the amount of times we need to repeat passkey
+        int frequency = (message.length()/passkey.length()) + 1);
+        // call function to actually repeat it
+        passkey = repeat(passkey, frequency);
         // loop from i = 0 to length of string to encrypt
         for (int i = 0; i < message.length(); i++) {
             // figure length of shift

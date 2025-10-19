@@ -114,3 +114,9 @@
 - before session
 - had prev session right before this, but i tried to run this program on cs1 servers but cs1 servers have an older version of java
   - i need to replace some keywords i used in my program with actual manual code
+
+10-18-2025 12:52 am
+- after session
+- fixed the repeating function
+- tested it on cs1 server and it works and functions as intended
+- will create readme and turn in

@@ -32,7 +32,7 @@ public class Encryption {
         // define an empty string to store decrypted word
         StringBuilder builder = new StringBuilder();
         // calculate the amount of times we need to repeat passkey
-        int frequency = (message.length()/passkey.length()) + 1);
+        int frequency = ((message.length()/passkey.length()) + 1);
         // call function to actually repeat it
         passkey = repeat(passkey, frequency);
         // loop from i = 0 to length of string to encrypt
@@ -58,7 +58,7 @@ public class Encryption {
         // define an empty string to store encrypted word
         StringBuilder builder = new StringBuilder();
         // calculate the amount of times we need to repeat passkey
-        int frequency = (message.length()/passkey.length()) + 1);
+        int frequency = ((message.length()/passkey.length()) + 1);
         // call function to actually repeat it
         passkey = repeat(passkey, frequency);
         // loop from i = 0 to length of string to encrypt

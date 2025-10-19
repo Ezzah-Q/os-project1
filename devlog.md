@@ -124,3 +124,8 @@
 10-19-2025 10:45 am
 - before session
 - need to write readme.md and clean up repo to turn in
+
+10-19-2025 10:51 am
+- created readme
+- deleted the .class files
+- ready to turn in

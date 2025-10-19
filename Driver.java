@@ -1,35 +1,160 @@
-// Driver program interacts with user and communicates with processes via pipes
+// Driver program
+// the main program that interacts with user and communicates
+// with encryption and logger programs though processes via pipes
 import java.io.*;
 import java.util.*;
 public class Driver {
-    // function that displays the history of the program
+
+    /**
+     * This function displays the history whenever the user decides
+     * to choose a string from history or type in history command
+     * @param history String from ArrayList
+     */
     private static void displayHistory(ArrayList<String> history) {
         System.out.println("          History ");
         System.out.println("------------------------------");
+        // loop over history and print each word
         for (int i = 0; i < history.size(); i++) {
             System.out.println((i + 1) + ") " + history.get(i));
         }
         System.out.println("------------------------------");
     }
 
-    // function that asks user if they want string from history
+    /**
+     * Boolean function called to determine if a string entered is valid
+     * checks for chars besides letters and emptiness
+     * @param input String of user input
+     * @return Bool signaling if word is valid or not
+     */
+    private static boolean isWordValid(String input) {
+        // if input is empty string return false
+        if(input.trim().isEmpty()) {
+            return false;
+        }
+        // if input has characters other than letters, return false
+        for(int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if(!Character.isLetter(c)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * this function handles the responses from the Encryption program, depending
+     * on if the response was an error or successful result
+     * @param result String from encryption program
+     * @param logWriter PrintWriter writing to log
+     * @param history String from array list
+     * @param commandType String signaling the command set by user
+     */
+    private static void handleEncryptionResponse(String result, PrintWriter logWriter, ArrayList<String> history, String commandType) {
+        // if the encryption response starts with RESULT print out the success messages to standard output and logger
+        if (result != null && result.startsWith("RESULT")){
+            // remove the "RESULT" part of the output so it's not logged and print messages
+            String output = result.substring(7).trim();
+            System.out.println(commandType + " successful: " + output);
+            // Add word to history if it is not a password
+            if (!commandType.equalsIgnoreCase("PASS")) {
+                history.add(output);
+            }
+            logWriter.println(commandType + " RESULT " + output);
+            System.out.println();
+
+        // if the encryption response starts with ERROR print out the error messages to standard output and logger
+        } else if (result != null && result.startsWith("ERROR")) {
+            // remove the "RESULT" part of the output so it's not logged and print messages
+            String errorMsg = result.substring(6).trim();
+            System.out.println(commandType + " not successful: " + errorMsg);
+            logWriter.println(commandType + " ERROR " + errorMsg);
+            System.out.println();
+
+        // if the encryption response does not start with either, or is empty, then take note of it
+        } else {
+            System.out.println("Unexpected or no response from encryption program: " + result);
+            logWriter.println(commandType + " ERROR Unexpected or no response: " + result);
+        }
+    }
+
+    /**
+     * this function runs the program logic for choosing a string
+     * a user may choose a string from history or type in a string.
+     * if a user chooses history, they are allowed to switch their minds and type in a string
+     * @param sc Scanner to read from user input
+     * @param history String from array list
+     * @param prompt String that asks user to choose history or new string
+     * @return string that user chooses
+     */
     private static String getStringFromHistoryOrNew(Scanner sc, ArrayList<String> history, String prompt) {
         while (true) {
+            // print out the prompt and record user input
             System.out.print(prompt + " (Y/N): ");
             String choice = sc.nextLine().trim();
 
+            // if input is y or Y
             if (choice.equalsIgnoreCase("y")) {
+                // message user if history is empty
                 if (history.isEmpty()) {
                     System.out.println("History is empty. Please choose no.");
                     continue;
                 }
+
+                // if history is not empty then display it
                 displayHistory(history);
-                System.out.print("Type in number of word you want to choose: ");
-                int index = Integer.parseInt(sc.nextLine().trim()) - 1;
-                return history.get(index);
+
+                // continuously repeat this prompt until program receives proper input
+                while(true) {
+                    // if after seeing history the user changes their mind they can instead put in a new string
+                    System.out.println("Type in history index to choose word or type 'c' to enter a string instead.");
+                    System.out.print("Your choice: ");
+                    String input = sc.nextLine().trim();
+
+                    // If user puts in c or C they can enter a new string
+                    if (input.equalsIgnoreCase("C")) {
+                        // continuously repeat this prompt until program receives proper input
+                        while (true) {
+                            System.out.print("Enter a string: ");
+                            String newInput = sc.nextLine().trim();
+
+                            // check if entered word is valid, return if it is and repeat if not
+                            if (isWordValid(newInput)) {
+                                return newInput.toUpperCase();
+                            } else {
+                                System.out.println("Invalid string. Only letters (no blanks or punctuation). Please try again.");
+                            }
+                        }
+                    // if user decides to use history
+                    } else {
+                        try {
+                            // if user enters an appropriate index number from history, return that word
+                            int index = Integer.parseInt(input) - 1;
+                            if (index >= 0 && index < history.size()) {
+                                return history.get(index).toUpperCase();
+                            } else {
+                                // is user picks a number not in the history it will be asked to pick again
+                                System.out.println("Invalid number. Choose a number from history index.");
+                            }
+                            // if the user does not enter a number the program will throw an error
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number or 'C'.");
+                        }
+                    }
+                }
+            // if user puts in n or N then go straight to entering in new string
             } else if (choice.equalsIgnoreCase("n")) {
-                System.out.print("Enter a string: ");
-                return sc.nextLine().toUpperCase();
+                while (true) {
+                    System.out.print("Enter a string: ");
+                    String newInput = sc.nextLine().trim();
+
+                    // check if word is valid
+                    if (isWordValid(newInput)) {
+                        return newInput.toUpperCase();
+                    } else {
+                        System.out.println("Invalid string. Only letters (no blanks or punctuation). Please try again.");
+                    }
+                }
+            // if user does not type in y or n then ask user to type in y or n
             } else {
                 System.out.println("Invalid choice. Please type y or n.");
             }
@@ -62,6 +187,7 @@ public class Driver {
         Scanner sc = new Scanner(System.in);
 
         label:
+        // continuously loop through the menu until user types in quit
         while(true) {
             System.out.println("           Menu");
             System.out.println("------------------------------");
@@ -71,98 +197,81 @@ public class Driver {
             System.out.println("4. History - show history");
             System.out.println("5. Quit - stop program");
             System.out.println("------------------------------");
-            System.out.print("Please Enter a Command: ");
 
+            // prompt user and take their input
+            System.out.print("Please Enter a Command: ");
             String command = sc.nextLine().trim().toLowerCase();
             System.out.println();
 
+            // switch statement to consider 4 possible cases
             switch (command) {
                 case "password": {
-                    // have logger print our command
-                    logWriter.println("SET_PASSWORD Setting password.");
+                    // call function for user to choose a string to set as password
                     String password = getStringFromHistoryOrNew(sc, history, "Would you like to choose password from history?");
-                    // send password to encryption program and read response from it
+                    // write to logger and encryption program
+                    logWriter.println("SET_PASSWORD Setting password.");
                     cryptWriter.println("PASS " + password);
                     String result = cryptReader.readLine();
-
-                    if (result.startsWith("RESULT")) {
-                        System.out.println("Password set successfully");
-                        logWriter.println("PASSWORD Password set."); // if possible add stalling time
-                        System.out.println();
-                    } else if (result.startsWith("ERROR")) {
-                        System.out.println("Password was not set successfully");
-                        logWriter.println("PASSWORD Password set failed.");
-                        System.out.println();
-                    }
+                    // function to handle encryption response and send appropriate messages
+                    handleEncryptionResponse(result, logWriter, history, "PASS");
                     break;
                 }
 
                 case "encrypt": {
+                    // call function for user to choose a string to encrypt
                     String encrypt = getStringFromHistoryOrNew(sc, history, "Would you like to choose a string from history?");
                     // write to logger and encryption program
                     logWriter.println("ENCRYPT " + encrypt);
                     cryptWriter.println("ENCRYPT " + encrypt);
-
-                    // only add if not already in history
+                    // only add word to history if not already in history
                     if (!history.contains(encrypt)) {
                         history.add(encrypt);
                     }
-
-                    // read response from encryption program
+                    // read result from encryption program
                     String result = cryptReader.readLine();
-                    if (result.startsWith("RESULT")) {
-                        System.out.println("Encryption successful " + result);
-                        history.add(result);
-                        logWriter.println("ENCRYPT Success: " + result);
-                        System.out.println();
-                    } else if (result.startsWith("ERROR")) {
-                        System.out.println("Encryption not successful");
-                        logWriter.println("ENCRYPT Encrypting failed"); // error for if passkey is not set before encrypting
-                        System.out.println();
-                    }
+                    handleEncryptionResponse(result, logWriter, history, "ENCRYPT");
                     break;
                 }
 
                 case "decrypt": {
+                    // call function for user to choose a string to decrypt
                     String decrypt = getStringFromHistoryOrNew(sc, history, "Would you like to choose a string from history?");
                     // write to logger and encryption program
                     logWriter.println("DECRYPT " + decrypt);
                     cryptWriter.println("DECRYPT " + decrypt);
-
-                    // only add if not already in history
+                    // only add word to history if not already in history
                     if (!history.contains(decrypt)) {
                         history.add(decrypt);
                     }
-
-                    // read response from encryption program
+                    // read result from encryption program
                     String result = cryptReader.readLine();
-                    if (result.startsWith("RESULT")) {
-                        System.out.println("Decryption successful " + result);
-                        history.add(result);
-                        logWriter.println("DECRYPT " + result);
-                    } else if (result.startsWith("ERROR")) {
-                        System.out.println("Decryption not successful");
-                        logWriter.println("DECRYPT encrypting failed");
-                    }
+                    handleEncryptionResponse(result, logWriter, history, "DECRYPT");
                     break;
                 }
 
                 case "history":
-                    // display the history array as a list
+                    // display the history array as a list and record in log
                     displayHistory(history);
                     logWriter.println("HISTORY Viewed history");
                     break;
+
                 case "quit":
+                    // write to logger and encryption program
+                    logWriter.println("EXIT Driver exited.");
                     logWriter.println("QUIT");
                     cryptWriter.println("QUIT");
+
+                    // wait for processes to end
+                    loggerProcess.waitFor();
+                    encryptProcess.waitFor();
+
                     break label;
+
                 default:
                     System.out.println("Invalid command.");
                     break;
             }
         }
-        // write to logger
-        logWriter.println("EXIT Driver exited.");
         sc.close();
     }
 }

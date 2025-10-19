@@ -120,3 +120,7 @@
 - fixed the repeating function
 - tested it on cs1 server and it works and functions as intended
 - will create readme and turn in
+
+10-19-2025 10:45 am
+- before session
+- need to write readme.md and clean up repo to turn in
